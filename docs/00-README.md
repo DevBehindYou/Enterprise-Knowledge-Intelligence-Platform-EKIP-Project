@@ -36,8 +36,11 @@ The stack decided for this build is:
 | 10 | `10-deployment-guide.docx` | Engineering, DevOps | Production deployment topology, environment setup, CI/CD, monitoring, rollback |
 | 11 | `11-credentials-and-secrets-management.docx` | Engineering, DevOps, security | Secrets inventory, handling principles, incident response |
 | 12 | `12-architecture.docx` | Engineering, leadership | Polished architecture reference, including the security hardening layer |
+| 13 | `13-production-deployment-and-operations.md` | DevOps, Engineering | Vercel + Render split deployment, CORS config, env variables |
+| 14 | `14-backend-cold-start-and-reliability-guide.md` | Frontend, DevOps | Free-tier cold-start handling, health check service, shimmer progress |
+| 15 | `15-custom-dialog-and-notification-system.md` | Frontend, Product | Custom modal dialogs, real-time notifications, 110+ master seed docs |
 
-Read order: **01 → 02 → 03/04 (parallel) → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12.** The UI/UX team can jump straight to 05–07 but should skim 01 and 06's flow sections first for context on the three user roles. Anyone standing up a real deployment should read 09–11 before going further than a local dev environment.
+Read order: **01 → 02 → 03/04 (parallel) → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15.** The UI/UX team can jump straight to 05–07 but should skim 01 and 06's flow sections first for context on the three user roles. Anyone standing up a real deployment should read 09–11 before going further than a local dev environment.
 
 ---
 
