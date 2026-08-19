@@ -1,0 +1,66 @@
+# Render Blueprint — backend API (free tier).
+# Deploy: Render Dashboard → New → Blueprint → point at this repo.
+# Secrets (sync:false below) are NOT read from here — set them in the Render
+# dashboard under the service's Environment tab so they never live in git.
+#
+# The free web service spins down after ~15 min idle (≈50s cold start on the
+# next request) and RUN_INLINE_WORKER=true runs ingestion inside this same
+# process — see DEPLOYMENT.md. For a production deploy, drop RUN_INLINE_WORKER
+# and add a second `type: worker` service running `npm run worker`.
+services:
+  - type: web
+    name: ekip-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render terminates TLS at one proxy hop in front of the app — required
+      # so rate limiting keys off the real client IP and secure cookies work.
+      - key: TRUST_PROXY
+        value: "1"
+      # Run the ingestion worker in-process (free tier has no separate worker).
+      - key: RUN_INLINE_WORKER
+        value: "true"
+      # Render injects PORT automatically; server.js already honors it.
+      # ---- everything below is a secret: set the value in the dashboard ----
+      - key: FRONTEND_ORIGIN            # https://<your-app>.vercel.app  (no trailing slash)
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        sync: false
+      - key: VECTOR_INDEX_NAME
+        sync: false
+      - key: VECTOR_DIMENSIONS
+        sync: false
+      - key: APP_JWT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: REDIS_URL                  # Upstash rediss:// URL
+        sync: false
+      - key: LLM_PROVIDER
+        sync: false
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        sync: false
+      - key: OLLAMA_API_KEY
+        sync: false
+      - key: EMBEDDING_PROVIDER
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_EMBEDDING_MODEL
+        sync: false
+      - key: DEFAULT_TENANT_ID
+        sync: false

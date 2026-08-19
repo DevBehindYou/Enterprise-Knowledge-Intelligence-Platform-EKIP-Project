@@ -1,0 +1,51 @@
+# Local development stack.
+# NOTE: MongoDB Atlas Vector Search is an Atlas-only feature. For local dev,
+# run `atlas deployments setup` (Atlas CLI) instead of a bare `mongo` image,
+# or point MONGODB_URI at a free-tier Atlas cluster — the vector index will
+# not work against a plain community-edition MongoDB container.
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - redis
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+
+  worker:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - redis
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run worker:dev
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    environment:
+      - VITE_PROXY_TARGET=http://backend:4000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+# MongoDB Atlas connection is external (MONGODB_URI in backend/.env).
+# Supabase Auth connection is external (SUPABASE_URL in backend/.env).

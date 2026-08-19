@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-canvas text-ink font-body;
+    font-size: 14px;
+  }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { @apply bg-line rounded-full; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
+  /* Focus ring — never removed, only restyled (docs/05 §6) */
+  button:focus-visible, a:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .citation-chip {
+    @apply inline-flex flex-col rounded-lg overflow-hidden text-left min-w-[168px] cursor-pointer;
+  }
+  .citation-chip .cap { @apply h-1 bg-signal; }
+  .citation-chip .body { @apply bg-accent text-white px-3 py-2; }
+  .citation-chip:hover .body { @apply bg-accent-dim; }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wide border border-line bg-surface-raised text-ink-muted;
+  }
+  .badge-success { @apply bg-success-tint text-[#146C48] border-transparent; }
+  .badge-warning { @apply bg-warning-tint text-[#8A5C0D] border-transparent; }
+  .badge-danger { @apply bg-danger-tint text-[#B3282C] border-transparent; }
+  .badge-accent { @apply bg-accent-tint text-accent-dim border-transparent; }
+  .badge-dark { @apply bg-signal text-white border-transparent; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 font-semibold text-[13.5px] px-4 py-2.5 rounded-component border border-transparent whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-accent text-white hover:bg-accent-dim; }
+  .btn-secondary { @apply btn bg-transparent border-line text-ink hover:bg-black/[0.03]; }
+  .btn-ghost { @apply btn bg-transparent text-ink-muted hover:text-ink; }
+  .btn-danger { @apply btn bg-transparent border-danger text-danger hover:bg-danger-tint; }
+
+  .input {
+    @apply w-full font-body text-[13.5px] bg-surface-raised border border-line rounded-component px-3.5 py-2.5 text-ink;
+  }
+  .input-error { @apply border-danger; }
+
+  .card { @apply bg-surface-raised border border-line rounded-component p-5; }
+  .card-flat { @apply bg-surface-raised rounded-component p-4; }
+
+  .nav-item { @apply flex items-center gap-2.5 px-2.5 py-2 rounded-component text-[13.5px] font-medium text-[#B7B7C2] hover:bg-white/[0.06] hover:text-white cursor-pointer; }
+  .nav-item-active { @apply bg-accent text-white hover:bg-accent hover:text-white; }
+}
