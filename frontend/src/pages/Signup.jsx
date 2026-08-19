@@ -4,10 +4,12 @@ import AuthShell from '../components/layout/AuthShell.jsx';
 import Input from '../components/foundations/Input.jsx';
 import Button from '../components/foundations/Button.jsx';
 import { useAuthViewModel } from '../viewmodels/useAuthViewModel.js';
+import { useBackendHealth } from '../context/BackendHealthContext.jsx';
 
 export default function Signup() {
   const [form, setForm] = useState({ name: '', email: '', password: '', department: 'Unassigned' });
   const { isSubmitting, error, handleSignup } = useAuthViewModel();
+  const { isWarming } = useBackendHealth();
   const navigate = useNavigate();
 
   async function onSubmit(e) {
@@ -39,9 +41,9 @@ export default function Signup() {
           required
         />
         {error && <div className="text-danger text-[12.5px] mb-3">{error}</div>}
-        <Button type="submit" className="w-full mt-2" loading={isSubmitting}>
-          Create account
-        </Button>
+        <Button type="submit" className="w-full mt-2" loading={isSubmitting} disabled={isSubmitting || isWarming}>
+          {isWarming ? "Waking up server..." : "Create account"}
+          </Button>
       </form>
       <hr className="border-line my-6" />
       <p className="text-center text-[12.5px] text-ink-muted">

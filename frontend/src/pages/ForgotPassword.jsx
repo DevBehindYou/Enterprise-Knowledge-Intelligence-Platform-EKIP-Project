@@ -4,11 +4,13 @@ import AuthShell from '../components/layout/AuthShell.jsx';
 import Input from '../components/foundations/Input.jsx';
 import Button from '../components/foundations/Button.jsx';
 import { useAuthViewModel } from '../viewmodels/useAuthViewModel.js';
+import { useBackendHealth } from '../context/BackendHealthContext.jsx';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const { isSubmitting, error, handleForgotPassword } = useAuthViewModel();
+  const { isWarming } = useBackendHealth();
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -29,9 +31,9 @@ export default function ForgotPassword() {
           <form onSubmit={onSubmit}>
             <Input label="Work email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             {error && <div className="text-danger text-[12.5px] mb-3">{error}</div>}
-            <Button type="submit" className="w-full" loading={isSubmitting}>
-              Send reset link
-            </Button>
+            <Button type="submit" className="w-full" loading={isSubmitting} disabled={isSubmitting || isWarming}>
+              {isWarming ? "Waking up server..." : "Send reset link"}
+              </Button>
           </form>
         </>
       )}
