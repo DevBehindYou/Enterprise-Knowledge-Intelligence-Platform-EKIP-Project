@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import { useUserManagementViewModel } from '../../viewmodels/useUserManagementViewModel.js';
 import Table from '../../components/foundations/Table.jsx';
 import Button from '../../components/foundations/Button.jsx';
+import { useDialog } from '../../context/DialogContext.jsx';
 import Modal from '../../components/foundations/Modal.jsx';
 import Input from '../../components/foundations/Input.jsx';
 import Select from '../../components/foundations/Select.jsx';
@@ -12,6 +13,7 @@ import Badge from '../../components/foundations/Badge.jsx';
 const STATUS_VARIANT = { active: 'success', invited: 'warning', suspended: 'danger' };
 
 export default function AdminUsers() {
+  const { prompt } = useDialog();
   const { users, isLoading, invite, update } = useUserManagementViewModel();
   const [isInviteOpen, setIsInviteOpen] = useState(false);
   const [inviteForm, setInviteForm] = useState({ name: '', email: '', role: 'employee', department: 'HR' });
@@ -45,9 +47,16 @@ export default function AdminUsers() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => {
-              const nextRole = window.prompt('New role (employee/manager/admin)', row.role);
-              if (nextRole) update(row._id, { role: nextRole });
+            onClick={async () => {
+              const nextRole = await prompt({
+                title: `Edit role for ${row.name}`,
+                message: 'Enter role: employee, manager, or admin',
+                defaultValue: row.role,
+                placeholder: 'employee | manager | admin'
+              });
+              if (nextRole && ['employee', 'manager', 'admin'].includes(nextRole.trim())) {
+                update(row._id, { role: nextRole.trim() });
+              }
             }}
           >
             Edit

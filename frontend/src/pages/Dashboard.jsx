@@ -75,12 +75,21 @@ export default function Dashboard() {
           <h3 className="text-sm font-semibold mb-3">Suggested questions</h3>
           <div className="flex flex-col gap-2">
             {[
-              'How many vacation days do I get per year?',
-              "What's the process for expense approval?",
-              'Who do I contact for a laptop replacement?',
-            ].map((q) => (
-              <button key={q} onClick={() => navigate('/chat', { state: { prefill: q } })} className="card-flat text-left text-[13px]">
-                "{q}"
+              { q: 'What is our AWS cloud migration strategy?', tag: 'Engineering' },
+              { q: 'What is our SOC2 Type II compliance status?', tag: 'Security' },
+              { q: 'What are the 2026 security protocols and MFA requirements?', tag: 'IT Policy' },
+              { q: 'What were our Q3 sales results and targets for North America?', tag: 'Sales' },
+              { q: 'What is our PTO and remote work equipment stipend policy?', tag: 'HR' }
+            ].map((item) => (
+              <button
+                key={item.q}
+                onClick={() => navigate('/chat', { state: { prefill: item.q } })}
+                className="card-flat text-left text-[13px] flex items-center justify-between group hover:border-accent transition-colors"
+              >
+                <span className="font-medium text-ink group-hover:text-accent">"{item.q}"</span>
+                <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-accent/10 text-accent flex-shrink-0 ml-2">
+                  {item.tag}
+                </span>
               </button>
             ))}
           </div>

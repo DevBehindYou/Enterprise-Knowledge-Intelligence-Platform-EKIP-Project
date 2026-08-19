@@ -17,6 +17,7 @@ import ingestionRoutes from './routes/ingestion.routes.js';
 import healthRoutes from './routes/health.routes.js';
 import filesRoutes from './routes/files.routes.js';
 import settingsRoutes from './routes/settings.routes.js';
+import notificationsRoutes from './routes/notifications.routes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFound } from './middleware/notFound.js';
 import { sanitizeInput } from './middleware/sanitizeInput.js';
@@ -83,6 +84,7 @@ app.use('/api/audit', auditRoutes);
 app.use('/api/ingestion', ingestionRoutes);
 app.use('/api/files', filesRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/notifications', notificationsRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

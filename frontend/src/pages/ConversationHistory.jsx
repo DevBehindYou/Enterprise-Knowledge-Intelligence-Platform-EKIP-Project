@@ -1,18 +1,44 @@
-import { useNavigate } from 'react-router-dom';
+﻿import { useNavigate } from 'react-router-dom';
 import { useConversationHistoryViewModel } from '../viewmodels/useConversationHistoryViewModel.js';
+import { useDialog } from '../context/DialogContext.jsx';
 import Table from '../components/foundations/Table.jsx';
 import Button from '../components/foundations/Button.jsx';
 
 export default function ConversationHistory() {
   const { conversations, isLoading, rename, remove } = useConversationHistoryViewModel();
+  const { confirm, prompt } = useDialog();
   const navigate = useNavigate();
+
+  const handleRename = async (row) => {
+    const title = await prompt({
+      title: 'Rename conversation',
+      message: 'Enter a new title for this conversation thread.',
+      defaultValue: row.title,
+      placeholder: 'e.g. Q3 Strategy Discussion'
+    });
+    if (title && title.trim()) {
+      rename(row._id, title.trim());
+    }
+  };
+
+  const handleDelete = async (row) => {
+    const ok = await confirm({
+      title: 'Delete conversation',
+      message: `Are you sure you want to delete "${row.title}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      variant: 'danger'
+    });
+    if (ok) {
+      remove(row._id);
+    }
+  };
 
   const columns = [
     {
       key: 'title',
       label: 'Title',
       render: (row) => (
-        <button className="font-semibold text-left" onClick={() => navigate(`/chat/${row._id}`)}>
+        <button className="font-semibold text-left hover:text-accent transition-colors" onClick={() => navigate(`/chat/${row._id}`)}>
           {row.title}
         </button>
       ),
@@ -27,14 +53,16 @@ export default function ConversationHistory() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => {
-              const title = window.prompt('Rename conversation', row.title);
-              if (title) rename(row._id, title);
-            }}
+            onClick={() => handleRename(row)}
           >
             Rename
           </Button>
-          <Button variant="ghost" size="sm" className="!text-danger" onClick={() => window.confirm('Delete this conversation?') && remove(row._id)}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="!text-danger hover:!bg-danger/10"
+            onClick={() => handleDelete(row)}
+          >
             Delete
           </Button>
         </div>

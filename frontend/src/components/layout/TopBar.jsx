@@ -2,8 +2,22 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, ChevronDown, Search, LogOut, Settings as SettingsIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { apiClient } from '../../lib/apiClient.js';
 
-export default function TopBar({ onOpenPalette, notificationCount = 0 }) {
+export default function TopBar({ onOpenPalette, notificationCount: initialCount = 0 }) {
+  const [unreadCount, setUnreadCount] = useState(initialCount);
+
+  useEffect(() => {
+    async function loadCount() {
+      try {
+        const res = await apiClient.get('/notifications');
+        setUnreadCount(res.data.unreadCount || 0);
+      } catch {
+        // silent fallback
+      }
+    }
+    loadCount();
+  }, []);
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -33,10 +47,14 @@ export default function TopBar({ onOpenPalette, notificationCount = 0 }) {
       </button>
 
       <div className="flex items-center gap-4">
-        <button className="relative w-9 h-9 rounded-full flex items-center justify-center text-[#C7C7D1] hover:bg-[#1E1E26] hover:text-white">
+        <button
+          onClick={() => navigate('/notifications')}
+          className="relative w-9 h-9 rounded-full flex items-center justify-center text-[#C7C7D1] hover:bg-[#1E1E26] hover:text-white transition-colors"
+          title="Notifications"
+        >
           <Bell size={18} />
-          {notificationCount > 0 && (
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-accent border-2 border-canvas" />
+          {unreadCount > 0 && (
+            <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-accent border-2 border-canvas animate-pulse" />
           )}
         </button>
 
