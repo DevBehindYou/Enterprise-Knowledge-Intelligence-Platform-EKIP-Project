@@ -44,7 +44,11 @@ app.use(
         if (env.frontendOrigin.includes('127.0.0.1')) allowedOrigins.push(env.frontendOrigin.replace('127.0.0.1', 'localhost'));
       }
       
-      if (allowedOrigins.includes(origin)) {
+      const isAllowed =
+        allowedOrigins.includes(origin) ||
+        (origin && origin.endsWith('.vercel.app'));
+
+      if (isAllowed) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));

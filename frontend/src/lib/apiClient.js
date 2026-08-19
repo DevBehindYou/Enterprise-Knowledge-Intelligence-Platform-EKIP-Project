@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
+let rawBaseURL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '/api';
+if (rawBaseURL && (rawBaseURL.startsWith('http://') || rawBaseURL.startsWith('https://'))) {
+  rawBaseURL = rawBaseURL.replace(/\/+$/, '');
+  if (!rawBaseURL.endsWith('/api')) {
+    rawBaseURL += '/api';
+  }
+}
+const baseURL = rawBaseURL;
 
 // Access token lives in memory only — never localStorage/sessionStorage (docs/02 §4).
 // The refresh token is an HttpOnly cookie the browser sends automatically; JS never touches it.
