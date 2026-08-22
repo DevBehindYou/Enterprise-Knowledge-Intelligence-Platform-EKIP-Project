@@ -72,7 +72,7 @@ Everything is env-driven; no code changes are needed to deploy.
 - [ ] Upload a document → after a few seconds it becomes searchable → ask a chat
       question and get a cited answer (verifies Gemini embeddings + Atlas vector search).
 
----
+----
 
 ## Scaling past free tier (later)
 
