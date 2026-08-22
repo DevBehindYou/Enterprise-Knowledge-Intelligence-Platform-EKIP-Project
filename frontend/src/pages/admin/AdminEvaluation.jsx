@@ -33,7 +33,7 @@ export default function AdminEvaluation() {
         <div className="text-ink-muted text-sm">Loading…</div>
       ) : (
         <>
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
             <div className="card">
               <div className="text-xs uppercase text-ink-muted">Citation coverage</div>
               <div className="font-display text-2xl font-bold mt-1.5">{Math.round((data?.upRate || 0) * 100)}%</div>
@@ -60,7 +60,8 @@ export default function AdminEvaluation() {
             {(data?.reviewQueue || []).length === 0 ? (
               <div className="text-ink-muted text-sm py-4">Nothing flagged right now.</div>
             ) : (
-              <table className="w-full">
+              <div className="overflow-x-auto">
+              <table className="w-full min-w-[520px]">
                 <thead>
                   <tr>
                     {['Message ID', 'Confidence', 'Flagged', ''].map((h) => (
@@ -85,6 +86,7 @@ export default function AdminEvaluation() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         </>

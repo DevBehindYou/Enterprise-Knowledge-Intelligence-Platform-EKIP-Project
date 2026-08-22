@@ -33,8 +33,11 @@ export default function Chat() {
   }
 
   return (
-    <div className="grid grid-cols-[260px_1fr] gap-6 h-[calc(100vh-160px)]">
-      <div className="overflow-y-auto">
+    <div className="flex flex-col lg:grid lg:grid-cols-[260px_1fr] gap-4 lg:gap-6 h-full min-h-0">
+      {/* Conversation list: a full column on desktop; on mobile it's hidden
+          (the Conversations nav item covers switching) and replaced by a compact
+          "New conversation" button above the thread. */}
+      <div className="hidden lg:flex lg:flex-col overflow-y-auto min-h-0">
         <button onClick={() => navigate('/chat')} className="btn-secondary w-full justify-start mb-3.5">
           <Plus size={16} /> New conversation
         </button>
@@ -45,14 +48,20 @@ export default function Chat() {
               onClick={() => navigate(`/chat/${c._id}`)}
               className={`nav-item text-ink w-full text-left ${c._id === conversationId ? 'nav-item-active !text-white' : ''}`}
             >
-              {c.title}
+              <span className="truncate">{c.title}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto pr-2">
+      <div className="flex flex-col h-full min-h-0">
+        <button
+          onClick={() => navigate('/chat')}
+          className="btn-secondary w-full justify-start mb-3 lg:hidden"
+        >
+          <Plus size={16} /> New conversation
+        </button>
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 sm:pr-2">
           <div className="flex flex-col gap-4.5 max-w-[720px]">
             {messages.length === 0 && (
               <div className="border border-dashed border-line rounded-component p-8 text-center text-ink-muted text-sm">

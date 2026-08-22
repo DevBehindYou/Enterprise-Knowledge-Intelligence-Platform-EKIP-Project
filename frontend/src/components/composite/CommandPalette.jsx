@@ -21,8 +21,8 @@ export default function CommandPalette({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-signal/50 flex items-start justify-center pt-[15vh] z-50" onClick={() => onClose(true)}>
-      <div className="bg-surface rounded-card p-5 w-full max-w-lg" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-signal/50 flex items-start justify-center px-4 pt-[12vh] sm:pt-[15vh] z-50" onClick={() => onClose(true)}>
+      <div className="bg-surface rounded-card p-4 sm:p-5 w-full max-w-lg" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-2.5 border border-line rounded-component px-3.5 py-3">
           <Search size={16} className="text-ink-muted" />
           <input

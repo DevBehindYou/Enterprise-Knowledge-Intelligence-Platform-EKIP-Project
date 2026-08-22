@@ -20,7 +20,7 @@ export default function Analytics() {
         <Skeleton className="h-64 w-full rounded-component" />
       ) : (
         <>
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
             <div className="stat-card card">
               <div className="text-xs uppercase text-ink-muted">Feedback rate</div>
               <div className="font-display text-2xl font-bold mt-1.5">{Math.round((data?.feedbackRate || 0) * 100)}%</div>

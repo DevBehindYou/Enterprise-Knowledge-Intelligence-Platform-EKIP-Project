@@ -55,13 +55,13 @@ export default function DocumentSummarizer() {
       {error && <div className="text-danger text-sm mb-4">{error}</div>}
 
       {isLoading ? (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Skeleton className="h-32 rounded-component" />
           <Skeleton className="h-32 rounded-component" />
         </div>
       ) : summary ? (
         <>
-          <div className="grid grid-cols-2 gap-5 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div className="card">
               <div className="text-xs uppercase tracking-wide text-ink-muted mb-2.5">Purpose</div>
               <p className="text-[13.5px] leading-relaxed">{summary.purpose}</p>

@@ -40,7 +40,7 @@ export default function AdminPermissions() {
         </p>
       </div>
 
-      <div className="grid grid-cols-[280px_1fr] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 lg:gap-6">
         <div className="flex flex-col gap-1">
           {documents.map((doc) => (
             <Button

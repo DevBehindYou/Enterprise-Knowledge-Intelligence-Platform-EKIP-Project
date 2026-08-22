@@ -22,43 +22,46 @@ const ADMIN = [
   { to: '/admin/system', icon: Server, label: 'System Health' },
 ];
 
-function Item({ to, icon: Icon, label, end }) {
+function Item({ to, icon: Icon, label, end, onNavigate }) {
   return (
     <NavLink
       to={to}
       end={end}
+      onClick={onNavigate}
       className={({ isActive }) => `nav-item ${isActive ? 'nav-item-active' : ''}`}
     >
-      <Icon size={18} />
-      <span>{label}</span>
+      <Icon size={18} className="shrink-0" />
+      <span className="truncate">{label}</span>
     </NavLink>
   );
 }
 
-export default function Sidebar({ role }) {
+export default function Sidebar({ role, onNavigate }) {
   return (
     <aside className="bg-canvas border-r border-chromeline p-3.5 flex flex-col gap-1 text-white h-full overflow-y-auto">
       <div className="flex items-center gap-2.5 px-2.5 pb-5 pt-1.5 font-display font-bold text-lg tracking-wide">
-        <span className="w-[26px] h-[26px] bg-accent rounded-lg flex items-center justify-center">
+        <span className="w-[26px] h-[26px] bg-accent rounded-lg flex items-center justify-center shrink-0">
           <Sparkles size={14} />
         </span>
         EKIP
       </div>
 
       {COMMON.map((item) => (
-        <Item key={item.to} {...item} />
+        <Item key={item.to} {...item} onNavigate={onNavigate} />
       ))}
 
-      {(role === 'manager' || role === 'admin') && <Item to="/analytics" icon={BarChart2} label="Analytics" />}
+      {(role === 'manager' || role === 'admin') && (
+        <Item to="/analytics" icon={BarChart2} label="Analytics" onNavigate={onNavigate} />
+      )}
 
       <div className="h-px bg-chromeline my-3 mx-1" />
-      <Item to="/settings" icon={Settings} label="Settings" />
+      <Item to="/settings" icon={Settings} label="Settings" onNavigate={onNavigate} />
 
       {role === 'admin' && (
         <>
           <div className="text-[11px] uppercase tracking-wide text-[#6B6B76] px-2.5 pt-4 pb-1.5">Admin console</div>
           {ADMIN.map((item) => (
-            <Item key={item.to} {...item} />
+            <Item key={item.to} {...item} onNavigate={onNavigate} />
           ))}
         </>
       )}

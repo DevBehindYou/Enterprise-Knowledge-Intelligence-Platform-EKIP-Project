@@ -91,12 +91,12 @@ export default function AdminDocuments() {
 
   return (
     <div>
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex justify-between items-start gap-3 flex-wrap mb-6">
         <div>
           <h1 className="text-2xl font-bold">Document management</h1>
           <p className="text-ink-muted text-[13.5px] mt-1.5">{documents.length} documents.</p>
         </div>
-        <Button onClick={() => setIsUploadOpen(true)}>Upload document</Button>
+        <Button onClick={() => setIsUploadOpen(true)} className="shrink-0">Upload document</Button>
       </div>
 
       <div className="card !p-0 overflow-hidden">

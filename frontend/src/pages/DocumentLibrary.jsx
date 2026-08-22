@@ -19,19 +19,19 @@ export default function DocumentLibrary() {
         <p className="text-ink-muted text-[13.5px] mt-1.5">Semantic search across every document you're permitted to see.</p>
       </div>
 
-      <div className="flex gap-2.5 mb-5">
-        <div className="flex-1 flex items-center gap-2.5 bg-surface-raised border border-line rounded-component px-3.5 py-2.5">
-          <Search size={16} className="text-ink-muted" />
+      <div className="flex flex-col sm:flex-row gap-2.5 mb-5">
+        <div className="flex-1 min-w-0 flex items-center gap-2.5 bg-surface-raised border border-line rounded-component px-3.5 py-2.5">
+          <Search size={16} className="text-ink-muted shrink-0" />
           <input
-            className="flex-1 bg-transparent outline-none text-[13.5px]"
+            className="flex-1 min-w-0 bg-transparent outline-none text-[13.5px]"
             placeholder="How many vacation days do employees get?"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && search(query)}
           />
-          <span className="badge-accent badge">Semantic</span>
+          <span className="badge-accent badge hidden sm:inline-flex">Semantic</span>
         </div>
-        <button className="btn-secondary">
+        <button className="btn-secondary shrink-0 justify-center">
           <Filter size={16} /> Department
         </button>
       </div>

@@ -49,17 +49,17 @@ export default function AdminSystem() {
 
   return (
     <div>
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex justify-between items-start gap-3 flex-wrap mb-6">
         <div>
           <h1 className="text-2xl font-bold">System health</h1>
           <p className="text-ink-muted text-[13.5px] mt-1.5">Ingestion queue, provider status, and infrastructure at a glance.</p>
         </div>
-        <Button variant="secondary" onClick={() => { loadHealth(); loadQueue(); }}>
+        <Button variant="secondary" onClick={() => { loadHealth(); loadQueue(); }} className="shrink-0">
           <RefreshCw size={16} /> Refresh
         </Button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="card">
           <div className="text-xs uppercase text-ink-muted">API</div>
           <div className="flex items-center gap-2 mt-2">
@@ -81,10 +81,10 @@ export default function AdminSystem() {
       </div>
 
       <div className="card mb-6">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center gap-3 flex-wrap mb-4">
           <div className="text-sm font-semibold">Ingestion queue (BullMQ / Redis)</div>
           {!isLoadingQueue && (
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <span className="badge">{counts.waiting ?? 0} waiting</span>
               <span className="badge-warning badge">{counts.active ?? 0} active</span>
               <span className="badge-danger badge">{counts.failed ?? 0} failed</span>
@@ -102,7 +102,8 @@ export default function AdminSystem() {
         ) : queue.recentJobs.length === 0 ? (
           <div className="text-ink-muted text-sm py-4">No ingestion jobs yet.</div>
         ) : (
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px]">
             <thead>
               <tr>
                 {['Document', 'Stage', 'Attempts', 'Started', ''].map((h) => (
@@ -127,6 +128,7 @@ export default function AdminSystem() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

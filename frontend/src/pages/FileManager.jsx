@@ -152,7 +152,7 @@ export default function FileManager() {
   const allSelected = allVisible > 0 && vm.selected.length === allVisible;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-120px)]">
+    <div className="flex flex-col h-full min-h-0">
       {/* ---- header ---- */}
       <div className="mb-4">
         <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -472,7 +472,8 @@ export default function FileManager() {
               })}
             </div>
           ) : (
-            <table className="w-full">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[520px]">
               <thead>
                 <tr className="text-left text-xs text-ink-muted uppercase">
                   <th className="pb-2.5 border-b border-line">Name</th>
@@ -529,6 +530,7 @@ export default function FileManager() {
                 })}
               </tbody>
             </table>
+            </div>
           )}
         </div>
 

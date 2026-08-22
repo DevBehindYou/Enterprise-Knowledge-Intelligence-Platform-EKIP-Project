@@ -8,12 +8,12 @@ export default function AdminAudit() {
 
   return (
     <div>
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex justify-between items-start gap-3 flex-wrap mb-6">
         <div>
           <h1 className="text-2xl font-bold">Audit log</h1>
           <p className="text-ink-muted text-[13.5px] mt-1.5">Append-only record of every login, document access, and permission change.</p>
         </div>
-        <Button variant="secondary">
+        <Button variant="secondary" className="shrink-0">
           <Download size={16} /> Export CSV
         </Button>
       </div>
@@ -24,7 +24,8 @@ export default function AdminAudit() {
         ) : entries.length === 0 ? (
           <div className="p-10 text-center text-ink-muted text-sm">No audit events yet.</div>
         ) : (
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px]">
             <thead>
               <tr>
                 {['Actor', 'Action', 'Target', 'Detail', 'Timestamp'].map((h) => (
@@ -40,6 +41,7 @@ export default function AdminAudit() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

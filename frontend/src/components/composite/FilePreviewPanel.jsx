@@ -74,7 +74,10 @@ export default function FilePreviewPanel({ item, onClose, onDownload, getPreview
   };
 
   return (
-    <aside className="w-[320px] shrink-0 border-l border-line bg-surface-raised flex flex-col h-full overflow-hidden">
+    // Below lg the content pane is too narrow to sit beside a 320px rail, so the
+    // preview becomes a full-height overlay drawer (closed via its X); at lg+ it's
+    // the static right rail.
+    <aside className="fixed inset-0 z-40 w-full border-l border-line bg-surface-raised flex flex-col h-full overflow-hidden shadow-2xl lg:static lg:inset-auto lg:z-auto lg:w-[320px] lg:shrink-0 lg:shadow-none">
       <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-line">
         <span className="text-[13px] font-semibold truncate">Details</span>
         <button onClick={onClose} className="text-ink-muted hover:text-ink p-1" aria-label="Close details">

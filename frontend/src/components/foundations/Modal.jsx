@@ -6,8 +6,11 @@ export default function Modal({ isOpen, onClose, title, children, maxWidth = 'ma
       onClick={onClose}
       role="presentation"
     >
+      {/* max-h + overflow so a tall dialog (long forms) scrolls inside itself
+          instead of overflowing off the top/bottom of the viewport on short
+          screens; responsive padding keeps it comfortable on small phones. */}
       <div
-        className={`bg-surface rounded-card p-7 w-full ${maxWidth}`}
+        className={`bg-surface rounded-card p-5 sm:p-7 w-full ${maxWidth} max-h-[90vh] overflow-y-auto`}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

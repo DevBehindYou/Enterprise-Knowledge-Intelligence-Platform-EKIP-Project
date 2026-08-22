@@ -58,7 +58,7 @@ export default function DocumentPreview() {
             {doc.department} · {doc.securityLevel} · Updated {new Date(doc.updatedAt).toLocaleDateString()} · v{doc.version}
           </p>
         </div>
-        <div className="flex gap-2.5">
+        <div className="flex gap-2.5 flex-wrap">
           <button className="btn-secondary" onClick={() => navigate('/chat', { state: { prefill: `About ${doc.originalName}: ` } })}>
             <MessageCircle size={16} /> Ask about this document
           </button>
@@ -70,7 +70,7 @@ export default function DocumentPreview() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         <div className="card min-h-[420px]">
           <div className="flex justify-between items-center mb-4">
             <span className="font-mono text-xs text-ink-muted">

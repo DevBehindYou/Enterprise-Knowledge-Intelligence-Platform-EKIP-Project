@@ -74,7 +74,7 @@ export default function AiIntegrationTab() {
 
   return (
     <div>
-      <div className="flex items-start justify-between gap-4 mb-5">
+      <div className="flex items-start justify-between gap-4 flex-wrap mb-5">
         <div className="max-w-xl">
           <h2 className="text-base font-semibold mb-1">AI Integration</h2>
           <p className="text-ink-muted text-[13px] leading-relaxed">
@@ -116,7 +116,7 @@ export default function AiIntegrationTab() {
           {vm.configs.map((config) => (
             <div
               key={config.id}
-              className={`card flex items-start justify-between gap-4 ${
+              className={`card flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 ${
                 config.isDefault ? 'border-accent' : ''
               } ${config.enabled ? '' : 'opacity-60'}`}
             >
@@ -141,7 +141,7 @@ export default function AiIntegrationTab() {
                 )}
               </div>
 
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
                 <Button variant="ghost" size="sm" onClick={() => vm.test(config.id)} title="Test connection">
                   <RefreshCw size={14} />
                 </Button>

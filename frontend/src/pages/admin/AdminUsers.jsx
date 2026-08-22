@@ -68,12 +68,12 @@ export default function AdminUsers() {
 
   return (
     <div>
-      <div className="flex justify-between items-start mb-6">
+      <div className="flex justify-between items-start gap-3 flex-wrap mb-6">
         <div>
           <h1 className="text-2xl font-bold">User management</h1>
           <p className="text-ink-muted text-[13.5px] mt-1.5">{users.length} users loaded.</p>
         </div>
-        <Button onClick={() => setIsInviteOpen(true)}>
+        <Button onClick={() => setIsInviteOpen(true)} className="shrink-0">
           <Plus size={16} /> Invite user
         </Button>
       </div>
